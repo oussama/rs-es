@@ -333,7 +333,7 @@ pub struct ActionResultInner {
     pub index: String,
     #[serde(rename = "_type")]
     pub doc_type: String,
-    #[serde(rename = "_version")]
+    #[serde(rename = "_version",default)]
     pub version: u64,
     pub status: u64,
     #[serde(rename = "_shards")]
