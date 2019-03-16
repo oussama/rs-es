@@ -57,7 +57,13 @@ impl EsResponse for reqwest::Response {
     where
         R: DeserializeOwned,
     {
-        Ok(serde_json::from_reader(self)?)
+        let mut buffer = String::new();
+        self.read_to_string(&mut buffer)?;
+        let res = serde_json::from_str(&buffer);
+        if !res.is_ok() {
+            println!("RESPONSE: {}",buffer);
+        };
+        res?
     }
 }
 
