@@ -53,7 +53,7 @@ impl EsResponse for reqwest::Response {
         self.status()
     }
 
-    fn read_response<R>(self) -> Result<R, EsError>
+    fn read_response<R>(mut self) -> Result<R, EsError>
     where
         R: DeserializeOwned,
     {
@@ -64,7 +64,8 @@ impl EsResponse for reqwest::Response {
         if !res.is_ok() {
             println!("RESPONSE: {}",buffer);
         };
-        res?
+        let r = res?;
+        Ok(r)
     }
 }
 
