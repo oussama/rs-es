@@ -57,6 +57,7 @@ impl EsResponse for reqwest::Response {
     where
         R: DeserializeOwned,
     {
+        use std::io::*;
         let mut buffer = String::new();
         self.read_to_string(&mut buffer)?;
         let res = serde_json::from_str(&buffer);
